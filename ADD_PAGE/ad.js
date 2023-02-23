@@ -22,6 +22,13 @@
         const data = myDataObj;
         alert("Car Added Successfully")
         console.log(data);
+        myForm.reset();
+        return false;
+        // myDataObj.brand.value = "";
+        // myDataObj.Description.value = "";
+        // myDataObj.kms.value = "";
+        // myDataObj.Price.value = "";
+
     })
    
 

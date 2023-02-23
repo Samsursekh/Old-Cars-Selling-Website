@@ -39,3 +39,64 @@
     padding: 25px 10px;
     text-align: center;
 }
+.deleteBtn{
+    color: teal;
+    font-weight: 700;
+   padding: 10px 20px;
+   margin-right: 5px;
+}
+ .editBtn{
+    color: teal;
+    font-weight: 700;
+    padding: 10px 20px;
+    margin-left: 5px;
+}
+.modal {
+    /* display: none; Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 20rem; /* Could be more or less, depending on screen size */
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .EditFormTag{
+    width: 90%;
+    padding: 20px;
+    border: 1px solid teal;
+  }
+
+  .editBrandInput,.EditPriceInput, .editImageInput{
+    width: 90%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+.editSaveBtn{
+    color: teal;
+    font-weight: 700;
+     padding: 10px 15px;
+     width: 97.7%;
+     cursor: pointer;
+}
