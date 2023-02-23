@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HOME PAGE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/index.css" />
+  </head>
+  <body>
+    <nav id="navbar">
+      <p><a href="index.html">HOME PAGE</a></p>
+      <p><a href="./ADD_PAGE/ad.html">AD PAGE</a></p>
+      <p><a href="/WISH_LIST_PAGE/wishlist.html">WISHLIST PAGE</a></p>
+    </nav>
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        color: teal;
+        font-weight: 700;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+        'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      "
+    >
+      <h1>CARS PAGE</h1>
+    </div>
+    <div style="display: flex;">
+        <div id="sidebar">
+          <!-- Implement Sort Here -->
+          <select name="" id="sortByPrice" onclick="sortByPriceFunction()">
+            <!-- This sort is basically Number sort -->
+            <option value="">Sort by Price</option>
+            <option value="HTL">High to Low</option>
+            <option value="LTH">Low to High</option>
+          </select>
+
+          <select name="" id="sortByKms" onclick="sortByKmsFunction()">
+            <!-- This sort is basically String sort -->
+            <option value="">Sort by Kms</option>
+            <option value="HTL">High to Low</option>
+            <option value="LTH">Low to High</option>
+          </select>
+
+          <!-- Implement Filtering Here -->
+          <select name="" id="FilterByBrand" onclick="FilterByBrandFunction()">
+            <option value="">Filter By Brand</option>
+            <option value="Tata">Tata</option>
+            <option value="Sumo">Sumo</option>
+            <option value="Safari">Safari</option>
+            <option value="Maruti">Maruti</option>
+            <option value="Audi">Audi</option>
+          </select>
+        </div>
+        <div id="container"></div>
+    </div>
+  </body>
+</html>
+<script src="/index.js"></script>
