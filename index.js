@@ -65,6 +65,7 @@ const displayDataFunction = (myData) => {
     heartIcon.style.cursor = "pointer";
     heartIcon.addEventListener("click", () => {
       console.log("Add to Cart ....");
+      AddToWishListButtonFunction(element, element.id, heartIcon);
     });
 
     const Description = document.createElement("p");
@@ -152,15 +153,24 @@ const handleDeleteFunction = async (deleteITem) => {
   modal.onclick = function () {
     modal.style.display = "block";
   };
+  const anotherFelxDiv = document.createElement("div");
+  anotherFelxDiv.style.display = "flex";
+  anotherFelxDiv.style.justifyContent = "space-evenly";
+
   const DELETE = document.createElement("button");
+  DELETE.classList.add("deleteBtn");
   DELETE.innerText = `DELETE`;
+
   const confirmPara = document.createElement("p");
+  confirmPara.style.color = "red";
+  confirmPara.style.fontWeight = "600";
   confirmPara.innerText = "Are you sure to delete this ?";
   DELETE.addEventListener("click", () => {
     deleteModalOpen(deleteITem);
   });
 
-  modalContent.append(confirmPara, DELETE);
+  anotherFelxDiv.append(confirmPara, DELETE);
+  modalContent.append(anotherFelxDiv);
   modal.append(modalContent);
   displayContainer.append(modal);
 
@@ -253,24 +263,69 @@ const handleEditFunction = (editITem) => {
   };
 };
 
-const EditSaveBtnToUpdate = (EditITem, id ,brand,price,image) => {
+const EditSaveBtnToUpdate = (EditITem, id, brand, price, image) => {
   console.log(EditITem);
   event.preventDefault();
   const updatedDataObj = {
-    brand : brand.value,
-    Price : price.value,
-    image : image.value,
-  }
+    brand: brand.value,
+    Price: price.value,
+    image: image.value,
+  };
   console.log("Updated...");
   fetch(`https://cars-mock-api-wjnb.onrender.com/cars/${id}`, {
     method: "PATCH",
     body: JSON.stringify(updatedDataObj),
-    headers : {
-        "Content-Type" : "application/json"
-    }
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
   const data = updatedDataObj;
   alert("Car Updated Successfully ");
   window.location.reload();
-  console.log(data)
+  console.log(data);
+};
+
+const AddToWishListButtonFunction = async (
+  cartItemELEMENT,
+  cartItemID,
+  heartIcon
+) => {
+  const productId = cartItemID; // ID of the product being added to cart
+  const cartELEMENT = cartItemELEMENT;
+
+  try {
+    const url = `https://cars-mock-api-wjnb.onrender.com/wishlisted_cars/`; // URL of the API endpoint
+    const res = await fetch(url);
+    const data = await res.json();
+    var dataID;
+    for (let i = 0; i < data.length; i++) {
+      dataID = data[i].id;
+    }
+    console.log(dataID)
+    console.log(productId)
+
+
+    if (productId !== dataID) {
+      const data = await fetch(
+        `https://cars-mock-api-wjnb.onrender.com/wishlisted_cars/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(cartELEMENT)
+        }
+      );
+      const cartData = await data.json();
+
+       console.log(cartData, "CartDATA")
+      heartIcon.style.color = "red";
+      alert("Item added to wishList....");
+    } else {
+      alert("Item has already exist....");
+      heartIcon.style.color = "blue";
+    }
+  } catch (err) {
+    console.log(err);
+  }
 };
