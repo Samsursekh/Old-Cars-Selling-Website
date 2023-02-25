@@ -1,22 +1,32 @@
 const container = document.getElementById("container");
 
 let myData = [];
+const cardsPerPage = 10;
+const pagination = document.querySelector(".pagination");
+
 const fetchDataFunc = async () => {
   try {
     const res = await fetch(`https://cars-mock-api-wjnb.onrender.com/cars`);
     const data = await res.json();
     myData = data;
-    displayDataFunction(myData);
+    displayDataFunction(myData, 1);
   } catch (err) {
     console.log(err);
   }
 };
 fetchDataFunc();
 
-const displayDataFunction = (myData) => {
+const displayDataFunction = (myData, currentPage) => {
   container.innerHTML = "";
-  // console.log(allData);
-  myData.forEach((element) => {
+
+  const firstCardIndex = (currentPage - 1) * cardsPerPage;
+  const lastCardIndex = firstCardIndex + cardsPerPage;
+
+  const currentProducts = myData.slice(firstCardIndex, lastCardIndex);
+  // console.log(currentProducts);
+
+
+  currentProducts.forEach((element) => {
     const cards = document.createElement("div");
     cards.classList.add("cards");
 
@@ -85,6 +95,27 @@ const displayDataFunction = (myData) => {
     );
     container.append(cards);
   });
+
+//pagination code starts here
+const pageCount = Math.ceil(myData.length / cardsPerPage);
+const pageLinksHtml = Array.from({ length: pageCount }, (_, i) => `
+  <a class="page-link ${i + 1 === currentPage ? "active" : ""}" data-page="${i + 1}">${i + 1}</a>
+`).join("");
+
+// console.log(pageLinksHtml, "Page link getting...")
+pagination.innerHTML = pageLinksHtml;
+
+// Set up event listeners for the pagination links
+const pageLinks = pagination.querySelectorAll(".page-link");
+pageLinks.forEach(link => {
+  link.addEventListener("click", () => {
+    const pageNumber = link.dataset.page;
+    displayDataFunction(myData, pageNumber);
+  });
+});
+
+//pagination ended here
+
 };
 //Implementing Sort By Price Functinality Here
 
@@ -95,14 +126,14 @@ const sortByPriceFunction = () => {
       return b.Price - a.Price;
     });
     // console.log(myData)
-    displayDataFunction(myData);
+    displayDataFunction(myData,1);
   }
   if (selected === "LTH") {
     myData.sort((a, b) => {
       return a.Price - b.Price;
     });
     // console.log(myData)
-    displayDataFunction(myData);
+    displayDataFunction(myData,1);
   }
 };
 
@@ -115,14 +146,14 @@ const sortByKmsFunction = () => {
       return b.kms - a.kms;
     });
     // console.log(myData)
-    displayDataFunction(myData);
+    displayDataFunction(myData,1);
   }
   if (selected === "LTH") {
     myData.sort((a, b) => {
       return a.kms - b.kms;
     });
     // console.log(myData)
-    displayDataFunction(myData);
+    displayDataFunction(myData,1);
   }
 };
 
@@ -133,13 +164,13 @@ const FilterByBrandFunction = () => {
   console.log(selected, "Checking Filter Items is there or not");
   const filteredList = myData.filter((elem) => {
     if (selected == []) {
-      displayDataFunction(myData);
+      displayDataFunction(myData,1);
       return "Empty";
     }
     return elem.brand === selected;
   });
   //   console.log(filteredList) ;
-  displayDataFunction(filteredList);
+  displayDataFunction(filteredList,1);
 };
 
 const handleDeleteFunction = async (deleteITem) => {
@@ -193,7 +224,7 @@ const deleteModalOpen = async (deleteITem) => {
   );
   const data = await deleteData.json();
   console.log(data);
-  displayDataFunction(myData);
+  displayDataFunction(myData,1);
   alert("Car Deleted Successfully");
   window.location.reload();
 };

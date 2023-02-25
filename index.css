@@ -210,3 +210,22 @@
     margin-bottom: 30px;
   }
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.page-link {
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.active {
+  background-color: #ccc;
+  color: #fff;
+}
