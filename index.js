@@ -23,7 +23,6 @@ const displayDataFunction = (myData, currentPage) => {
   const lastCardIndex = firstCardIndex + cardsPerPage;
 
   const currentProducts = myData.slice(firstCardIndex, lastCardIndex);
-  // console.log(currentProducts);
 
 
   currentProducts.forEach((element) => {
@@ -58,14 +57,12 @@ const displayDataFunction = (myData, currentPage) => {
     editBtn.classList.add("editBtn");
     editBtn.innerText = "EDIT";
     editBtn.addEventListener("click", () => {
-      console.log("Edited ....");
       handleEditFunction(element);
     });
     const deleteBtn = document.createElement("button");
     deleteBtn.classList.add("deleteBtn");
     deleteBtn.innerText = "DELETE";
     deleteBtn.addEventListener("click", () => {
-      console.log("Deleted ....");
       handleDeleteFunction(element.id);
     });
     const heartIcon = document.createElement("span");
@@ -74,7 +71,6 @@ const displayDataFunction = (myData, currentPage) => {
     heartIcon.style.fontSize = "24px";
     heartIcon.style.cursor = "pointer";
     heartIcon.addEventListener("click", () => {
-      console.log("Add to Cart ....");
       AddToWishListButtonFunction(element, element.id, heartIcon);
     });
 
@@ -102,7 +98,6 @@ const pageLinksHtml = Array.from({ length: pageCount }, (_, i) => `
   <a class="page-link ${i + 1 === currentPage ? "active" : ""}" data-page="${i + 1}">${i + 1}</a>
 `).join("");
 
-// console.log(pageLinksHtml, "Page link getting...")
 pagination.innerHTML = pageLinksHtml;
 
 // Set up event listeners for the pagination links
@@ -125,14 +120,12 @@ const sortByPriceFunction = () => {
     myData.sort((a, b) => {
       return b.Price - a.Price;
     });
-    // console.log(myData)
     displayDataFunction(myData,1);
   }
   if (selected === "LTH") {
     myData.sort((a, b) => {
       return a.Price - b.Price;
     });
-    // console.log(myData)
     displayDataFunction(myData,1);
   }
 };
@@ -145,14 +138,12 @@ const sortByKmsFunction = () => {
     myData.sort((a, b) => {
       return b.kms - a.kms;
     });
-    // console.log(myData)
     displayDataFunction(myData,1);
   }
   if (selected === "LTH") {
     myData.sort((a, b) => {
       return a.kms - b.kms;
     });
-    // console.log(myData)
     displayDataFunction(myData,1);
   }
 };
@@ -161,7 +152,6 @@ const sortByKmsFunction = () => {
 
 const FilterByBrandFunction = () => {
   const selected = document.getElementById("FilterByBrand").value;
-  console.log(selected, "Checking Filter Items is there or not");
   const filteredList = myData.filter((elem) => {
     if (selected == []) {
       displayDataFunction(myData,1);
@@ -169,12 +159,10 @@ const FilterByBrandFunction = () => {
     }
     return elem.brand === selected;
   });
-  //   console.log(filteredList) ;
   displayDataFunction(filteredList,1);
 };
 
 const handleDeleteFunction = async (deleteITem) => {
-  console.log(deleteITem, "Am i Getting delte item or not");
   const displayContainer = document.getElementById("container");
 
   const modal = document.createElement("div");
@@ -223,14 +211,12 @@ const deleteModalOpen = async (deleteITem) => {
     }
   );
   const data = await deleteData.json();
-  console.log(data);
   displayDataFunction(myData,1);
   alert("Car Deleted Successfully");
   window.location.reload();
 };
 
 const handleEditFunction = (editITem) => {
-  console.log(editITem.brand);
   const displayContainer = document.getElementById("container");
 
   const modal = document.createElement("div");
@@ -295,14 +281,12 @@ const handleEditFunction = (editITem) => {
 };
 
 const EditSaveBtnToUpdate = (EditITem, id, brand, price, image) => {
-  console.log(EditITem);
   event.preventDefault();
   const updatedDataObj = {
     brand: brand.value,
     Price: price.value,
     image: image.value,
   };
-  console.log("Updated...");
   fetch(`https://cars-mock-api-wjnb.onrender.com/cars/${id}`, {
     method: "PATCH",
     body: JSON.stringify(updatedDataObj),
@@ -313,7 +297,6 @@ const EditSaveBtnToUpdate = (EditITem, id, brand, price, image) => {
   const data = updatedDataObj;
   alert("Car Updated Successfully ");
   window.location.reload();
-  console.log(data);
 };
 
 const AddToWishListButtonFunction = async (
@@ -332,8 +315,6 @@ const AddToWishListButtonFunction = async (
     for (let i = 0; i < data.length; i++) {
       dataID = data[i].id;
     }
-    console.log(dataID)
-    console.log(productId)
 
 
     if (productId !== dataID) {
@@ -349,7 +330,6 @@ const AddToWishListButtonFunction = async (
       );
       const cartData = await data.json();
 
-       console.log(cartData, "CartDATA")
       heartIcon.style.color = "red";
       alert("Item added to wishList....");
     } else {

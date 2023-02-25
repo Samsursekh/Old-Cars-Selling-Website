@@ -13,7 +13,6 @@ fetchData();
 
 const displayDataFunction = (myData) => {
   container.innerHTML = "";
-  // console.log(allData);
   myData.forEach((element) => {
     const cards = document.createElement("div");
     cards.classList.add("cards");
